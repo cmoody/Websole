@@ -1,0 +1,11 @@
+ul {
+	list-style-type: none;
+}
+#console {
+	background-color: #000;
+	color: #00FF00;
+	height: 300px;
+	overflow-y: scroll;
+	border: 2px solid #D5D5D5;
+	box-shadow: inset 2px 2px 2px 2px #F1F1F1;
+}
