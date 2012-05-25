@@ -19,12 +19,12 @@ io.sockets.on('connection', function(socket) {
 		socket.join(HOST);
 	
 		client = net.createConnection(PORT, HOST, function() {
-			socket.emit('xboxconnect', 'connected');
+			socket.emit('connect', 'connected');
 			console.log('CONNECTED TO: ' + HOST + ':' + PORT);
 		});
 		
 		client.on('data', function(data) {
-			console.log(colors.green('Xbox: ' + data));
+			console.log(colors.green('Console: ' + data));
 		});
 	});
 	
