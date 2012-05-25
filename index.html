@@ -3,21 +3,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Console</title>
-		<link href="assets/css/console.css" rel="stylesheet">
+		<link href="assets/css/style.css" rel="stylesheet">
 	</head>
 	<body>
 		<aside><!-- Contains command list --></aside>
 		<section id="console">
 			<ul>
-				<li>&gt;</li>
+				<li>&gt; Welcome!</li>
 			</ul>
 		</section>
-		<input type="text" class="cmd"/>
-		<button class="send">Send</button>
+		<section id="cmdline">
+			<input type="text" placeholder="Enter Command or Up Arrow for History" class="cmd"/>
+			<button class="send">Send</button>
+		</section>
 		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
 		<script src="assets/js/jquery-1.7.2.min.js"></script>
-        <script src="assets/js/underscore-min.js"></script>
-        <script src="assets/js/backbone-min.js"></script>
         <script src="assets/js/console.js"></script>
 	</body>
 </html>

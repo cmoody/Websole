@@ -9,3 +9,9 @@ ul {
 	border: 2px solid #D5D5D5;
 	box-shadow: inset 2px 2px 2px 2px #F1F1F1;
 }
+.cmd {
+	width: 80%;
+}
+.send {
+	width: 100px;
+}
