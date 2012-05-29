@@ -1,19 +1,9 @@
 (function(){
 	
 	/* Global Variables */
-	cmdHistory = [];
-	count = '';
-	
-	/* Socket.io Section */
-	var socket = io.connect('http://10.202.0.91:8000');
-	
-	socket.on('connect', function(){
-		socket.emit('setChannel',{'channelName': '10.202.0.91'});
-	});
-	
-	socket.on('consoleLog', function(data) {
-		$('#console ul').append('<li>Console: ' + data + '</li>');
-	});
+	var cmdHistory = [];
+	var count = '';
+	var connected = false;
 	
 	/* List of available commands */
 	// Eventually move to Node
@@ -28,12 +18,18 @@
 	for(i=0;i<=cmdAvailable.length-1;i++){
 		$('#cmdavailable').append('<li>' + cmdAvailable[i]['name'] + '<span>&lt; ' + cmdAvailable[i]['description'] + ' &gt;</span></li>');
 	}
-	*/
+	*/	
+	
+	/* Socket.io Section */
+	var socket = io.connect('http://10.202.0.91:8000');
+	
+	socket.on('consoleLog', function(data) {
+		$('#console ul').append('<li>' + data + '</li>');
+	});
 	
 	/* On click of send button take whats in input and send it */
-	function cmdAction(){
-		var cmd = $('.cmd').val();
-		
+	function cmdAction(cmd){
+		// Add command to history
 		cmdHistory.push(cmd);
 		
 		/* To keep the cmdHistory array from getting too large */
@@ -54,8 +50,52 @@
 		
 	};
 	
+	function connectCheck(){
+		var cmd = $('.cmd').val(),
+			ip;
+		
+		if(cmd.match(/^connect/)){
+			// Closes socket room and client connection just in case before connect
+			//socket.emit('end');
+			
+			// Removes connect from cmd so just IP left over then sets channel
+			ip = cmd.replace(/^connect /, '');
+			socket.emit('setChannel',{'channelName': ip});
+			
+			// Resets input field
+			$('.cmd').val('');
+			
+			// Sets connected so we know channel is setup
+			connected = true;
+			
+		}else if(cmd.match(/^disconnect/)){
+			// Closes socket room and client connection
+			$('.cmd').val('');
+			
+			socket.emit('end');
+			
+			$('#console ul').append('<li>Disconnected from server</li>');
+			
+			// Resets being connected
+			connected = false;
+			
+		}else{
+			// Checks if connection has been made
+			if(connected){
+				// Sends command to terminal
+				cmdAction(cmd);
+			
+			}else{
+				$('#console ul').append('<li>No connection established</li>');
+				$('.cmd').val('');
+				
+			}
+		}
+		
+	};
+	
 	$('.send').click(function() {
-		cmdAction();
+		connectCheck();
 	});
 	
 	/* Arrow key up goes through input history */
@@ -72,7 +112,7 @@
 	  	
 	  }else if(e.keyCode == 13) {
 	  	// Enter Key Sends CMD
-	  	cmdAction();
+	  	connectCheck();
 	  	
 	  }else{
 	  	// Search Through Available CMDs
@@ -84,6 +124,8 @@
 	$(document).keyup(function(e) {
 		if(e.keyCode == 192) {
 			$('#cosnole-wrapper').slideToggle();
+			// Not the best work around for prevent ` in command line
+			$('.cmd').val('');
 		}
 	});
 	

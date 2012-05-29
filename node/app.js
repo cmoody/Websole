@@ -17,37 +17,34 @@ io.sockets.on('connection', function(socket) {
 	
 	socket.on('setChannel', function(data) {
 		// Creates channel based on the IP connecting to for TCP
-		//HOST = data.channelName;
-		//socket.room = HOST;
+		socket.room = data.channelName;
 		
 		socket.join(data.channelName);
 		
 		// Connects to TCP server
-		/*client = net.createConnection(PORT, HOST, function() {
-			socket.emit('connect', 'connected');
-			console.log('CONNECTED TO: ' + HOST + ':' + PORT);
-		});*/
+		client = net.createConnection(PORT, data.channelName, function() {
+			//socket.emit('connect', 'connected');
+			socket.emit('consoleLog', 'Connection made to ' + data.channelName + ':' + PORT);
+			console.log('CONNECTED TO: ' + data.channelName + ':' + PORT);
+		});
 		
 		// Data from TCP server
-		/*client.on('data', function(data) {
+		client.on('data', function(data) {
 			console.log(colors.green('Console: ' + data));
-		});*/
+			// Fix channelName
+			socket.emit('consoleLog', 'Console: ' + data);
+		});
 	});
 	
 	// Takes command sent in and sends it to TCP server
 	socket.on('cmd', function(data) {
-		/*client.write(data+'\n', function() {
-			console.log(data);
-		});*/
-		console.log(data);
-		// Fix channelName
-		socket.emit('consoleLog', 'You said "' + data + '"');
+		client.write(data+'\n', function() {});
 	});
 	
 	// Closes TCP server connection, leaves socket room but KEEPS SOCKET OPEN this allows for disconnect without page refresh
 	socket.on('end', function() {
 		socket.leave(socket.room);
-		//client.destroy();
+		client.destroy();
 		console.log('user disconnected ' + HOST);
 	});
 

@@ -12,7 +12,11 @@ net.createServer(function (sock) {
         
         console.log('DATA ' + sock.remoteAddress + ': ' + data);
         // Write the data back to the socket, the client will receive it as data from the server
-        sock.write('You said "' + data + '"');
+        if(data != 'apples'){
+        	sock.write('Thats right you said ' + data);
+        }else{
+       		sock.write('Who doesnt like apples?');
+       	}
         
     });
     
