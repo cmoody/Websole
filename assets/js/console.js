@@ -4,13 +4,31 @@
 	cmdHistory = [];
 	count = '';
 	
+	/* Socket.io Section */
+	var socket = io.connect('http://10.202.0.91:8000');
+	
+	socket.on('connect', function(){
+		socket.emit('setChannel',{'channelName': '10.202.0.91'});
+	});
+	
+	socket.on('consoleLog', function(data) {
+		$('#console ul').append('<li>Console: ' + data + '</li>');
+	});
+	
 	/* List of available commands */
 	// Eventually move to Node
+	// On connect return array from TCP server
 	var cmdAvailable = [
 		{ name: "apples", description: "They are tasty" },
 		{ name: "hud_show", description: "hud_show <variable> can be 1 for on or 0 for off" },
 		{ name: "screenshot", description: "Saves screenshot" }
 	];
+	// For testing style
+	/*
+	for(i=0;i<=cmdAvailable.length-1;i++){
+		$('#cmdavailable').append('<li>' + cmdAvailable[i]['name'] + '<span>&lt; ' + cmdAvailable[i]['description'] + ' &gt;</span></li>');
+	}
+	*/
 	
 	/* On click of send button take whats in input and send it */
 	function cmdAction(){
@@ -24,7 +42,7 @@
 		$('#console ul').append('<li>&gt; ' + cmd + '</li>');
 		
 		/* Send command to node.js server on websocket */
-		// socket.emit('cmd',cmd);
+		socket.emit('cmd',cmd);
 		
 		// Resets input field & history count
 		$('.cmd').val('');
@@ -62,12 +80,6 @@
 	  	
 	  }
 	});
-	
-	/*
-	socket.on('response', function(data) {
-		$('#console ul').append('<li>Console: ' + data + '</li>');
-	});
-	*/
 	
 	$(document).keyup(function(e) {
 		if(e.keyCode == 192) {

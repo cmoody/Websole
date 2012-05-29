@@ -46,13 +46,20 @@ ul {
 }
 	#cmdavailable li {
 		padding: 2px;
+		clear: both;
 	}
 		#cmdavailable li:hover {
 			background-color: #3A87AD;
 			color: #fff;
 			cursor: pointer;
 		}
-
+	#cmdavailable span {
+		float: right;
+		width: 350px;
+		text-align: left;
+		margin-right: 10px;
+		color: #9E9E9E;
+	}
 .cmd {
 	width: 780px;
 	margin-left: 5px;
