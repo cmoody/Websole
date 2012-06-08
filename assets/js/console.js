@@ -1,5 +1,8 @@
 (function(){
 	
+	// Appends to body of page
+	$('body').append('<div id="cosnole-wrapper"><section id="console"><ul><li>Type "connect &lt;IP Address&gt;" to start session.</li></ul></section><section id="cmdline"><input type="text" placeholder="Enter Command or Up/Down Arrow for History" class="cmd"/><button class="send">Send</button><ul id="cmdavailable"></ul></section></div>');
+	
 	/* Global Variables */
 	var cmdHistory = [];
 	var count = '';
@@ -7,18 +10,19 @@
 	
 	/* List of available commands */
 	// Eventually move to Node
-	// On connect return array from TCP server
+	// On connect return JSON data from TCP server of available
 	var cmdAvailable = [
 		{ name: "apples", description: "They are tasty" },
 		{ name: "hud_show", description: "hud_show <variable> can be 1 for on or 0 for off" },
 		{ name: "screenshot", description: "Saves screenshot" }
 	];
+	
 	// For testing style
 	/*
 	for(i=0;i<=cmdAvailable.length-1;i++){
 		$('#cmdavailable').append('<li>' + cmdAvailable[i]['name'] + '<span>&lt; ' + cmdAvailable[i]['description'] + ' &gt;</span></li>');
 	}
-	*/	
+	*/
 	
 	/* Socket.io Section */
 	var socket = io.connect('http://10.202.0.91:8000');
@@ -128,5 +132,8 @@
 			$('.cmd').val('');
 		}
 	});
-	
+
 })();
+
+// Think about a way to utilize a push to inform
+// This would be an admin console where messages (warning, alert, info) can be emitted from node to the browser window
