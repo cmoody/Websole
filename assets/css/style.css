@@ -3,7 +3,7 @@ ul {
 }
 
 #cosnole-wrapper {
-	position: absolute;
+	position: fixed; /* Changed from being absolute */
 	margin: 0 auto;
 	left: 0;
 	right: 0;

@@ -1,7 +1,7 @@
 (function(){
 	
-	// Appends to body of page
-	$('body').append('<div id="cosnole-wrapper"><section id="console"><ul><li>Type "connect &lt;IP Address&gt;" to start session.</li></ul></section><section id="cmdline"><input type="text" placeholder="Enter Command or Up/Down Arrow for History" class="cmd"/><button class="send">Send</button><ul id="cmdavailable"></ul></section></div>');
+	// Appends to body of page // Still not working
+	//$('body').append('<div id="cosnole-wrapper"><section id="console"><ul><li>Type "connect &lt;IP Address&gt;" to start session.</li></ul></section><section id="cmdline"><input type="text" placeholder="Enter Command or Up/Down Arrow for History" class="cmd"/><button class="send">Send</button><ul id="cmdavailable"></ul></section></div>');
 	
 	/* Global Variables */
 	var cmdHistory = [];
@@ -25,7 +25,7 @@
 	*/
 	
 	/* Socket.io Section */
-	var socket = io.connect('http://10.202.0.91:8000');
+	var socket = io.connect('http://localhost:8000');
 	
 	socket.on('consoleLog', function(data) {
 		$('#console ul').append('<li>' + data + '</li>');
@@ -133,6 +133,11 @@
 		}
 	});
 
+	// Use this to create data-cmd buttons to pass them to the socket
+	$('button').click(function(){
+		var cmd = this.getAttribute('data-cmd');
+		socket.emit('cmd',cmd);
+	});
 })();
 
 // Think about a way to utilize a push to inform
