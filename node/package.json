@@ -1,0 +1,13 @@
+{
+  "name": "Websole",
+  "description": "Web based console and TCP server",
+  "author": "Chase Moody <chase@texmood.com",
+  "version": "0.0.1",
+  "dependencies": {
+    "net": ">= 0",
+    "express": ">= 0",
+    "socket.io": "",
+    "colors": "",
+  },
+  "engine": "node 0.8.1"
+}

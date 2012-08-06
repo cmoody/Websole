@@ -1,70 +1,12 @@
-ul {
-	list-style-type: none;
-}
-
-#cosnole-wrapper {
-	position: fixed; /* Changed from being absolute */
+#container {
 	margin: 0 auto;
-	left: 0;
-	right: 0;
-	top: 0px;
-	width: 900px;
-	display: none;
+	width: 960px;
+	border: 1px solid #CACACA;
+	padding: 10px;
+	-webkit-box-shadow: 0 0 5px #CACACA;
+	   -moz-box-shadow: 0 0 5px #CACACA;
+	        box-shadow: 0 0 5px #CACACA;
 }
-
-#console {
-	background-color: #000;
-	color: #00FF00;
-	height: 300px;
-	opacity: 0.9;
-	overflow-y: scroll;
-	border-left: 2px solid #D5D5D5;
-	border-right: 2px solid #D5D5D5;
-	box-shadow: inset 2px 2px 2px 2px #F1F1F1;
-}
-
-#cmdline {
-	background-color: #EFEFEF;
-	border-left: 2px solid #D5D5D5;
-	border-right: 2px solid #D5D5D5;
-	border-bottom: 2px solid #D5D5D5;
-	border-bottom-left-radius: 15px;
-	border-bottom-right-radius: 15px;
-	height: 40px;
-}
-
-#cmdavailable {
-	display: none;
-	position: relative;
-	width: 782px;
-	margin-left: 5px;
-	border: 1px solid #ABADB3;
-	border-top: 0;
-	background-color: #EFEFEF;
-	top: -18px;
-	padding: 0;
-}
-	#cmdavailable li {
-		padding: 2px;
-		clear: both;
+	#container h1 {
+		
 	}
-		#cmdavailable li:hover {
-			background-color: #3A87AD;
-			color: #fff;
-			cursor: pointer;
-		}
-	#cmdavailable span {
-		float: right;
-		width: 350px;
-		text-align: left;
-		margin-right: 10px;
-		color: #9E9E9E;
-	}
-.cmd {
-	width: 780px;
-	margin-left: 5px;
-	margin-top: 8px;
-}
-.send {
-	width: 100px;
-}
